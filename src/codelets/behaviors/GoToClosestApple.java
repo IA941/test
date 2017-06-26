@@ -57,7 +57,7 @@ public class GoToClosestApple extends Codelet {
         // Find distance between creature and closest apple
         //If far, go towards it
         //If close, stops
-        if (((double)fuelMO.getI()) > 40) {
+        if (((double)fuelMO.getI()) >= 40) {
             return;
         }
 

@@ -31,6 +31,7 @@ public class Search extends Codelet {
     private MemoryObject knownApplesMO;
     private MemoryObject legsMO;
     private MemoryObject knownJewelsMO;
+    private MemoryObject fuelMO;
 
     public Search() {
         this.setTimeStep(300);
@@ -38,8 +39,9 @@ public class Search extends Codelet {
 
     @Override
     public void proc() {
-        if (((List<Thing>) knownJewelsMO.getI()).size() > 0 ||
-                ((List<Thing>) knownApplesMO.getI()).size() > 0) {
+        if (((List<Thing>) knownApplesMO.getI()).size() > 0 ||
+                ((double) fuelMO.getI()) >= 40 &&
+                ((List<Thing>) knownJewelsMO.getI()).size() > 0) {
             return;
         }
 
@@ -57,6 +59,7 @@ public class Search extends Codelet {
     public void accessMemoryObjects() {
         knownApplesMO = (MemoryObject) this.getInput("KNOWN_APPLES");
         knownJewelsMO = (MemoryObject) this.getInput("KNOWN_JEWELS");
+        fuelMO = (MemoryObject) this.getInput("FUEL");
         legsMO = (MemoryObject) this.getOutput("LEGS");
     }
 

@@ -48,10 +48,6 @@ public class ClosestJewelDetector extends Codelet {
 
     @Override
     public void proc() {
-        if (closestJewelMO != null && closestJewelMO.getI() != null) {
-            return;
-        }
-
         Thing closest_jewel = null;
         known = (List<Thing>) knownMO.getI();
         CreatureInnerSense cis = (CreatureInnerSense) innerSenseMO.getI();

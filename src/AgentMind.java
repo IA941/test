@@ -183,6 +183,7 @@ public class AgentMind extends Mind {
         Codelet search = new Search();
         search.addInput(knownJewelsMO);
         search.addInput(knownApplesMO);
+        search.addInput(fuelMO);
         search.addOutput(legsMO);
         insertCodelet(search);
 
