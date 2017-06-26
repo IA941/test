@@ -62,6 +62,7 @@ public class GoToClosestApple extends Codelet {
         }
 
         Thing closestApple = (Thing) closestAppleMO.getI();
+
         CreatureInnerSense cis = (CreatureInnerSense) selfInfoMO.getI();
 
         if (closestApple != null) {

@@ -2,20 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34708cdc-bfe6-42ec-a5b8-6f5b57d8634c" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/codelets/behaviors/Forage.java" afterPath="$PROJECT_DIR$/src/codelets/behaviors/Search.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/cst.jar" afterPath="$PROJECT_DIR$/lib/cst.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AgentMind.java" afterPath="$PROJECT_DIR$/src/AgentMind.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/codelets/behaviors/EatClosestApple.java" afterPath="$PROJECT_DIR$/src/codelets/behaviors/EatClosestApple.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/codelets/behaviors/GetClosestJewel.java" afterPath="$PROJECT_DIR$/src/codelets/behaviors/GetClosestJewel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/codelets/behaviors/GoToClosestApple.java" afterPath="$PROJECT_DIR$/src/codelets/behaviors/GoToClosestApple.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/codelets/behaviors/GoToClosestJewel.java" afterPath="$PROJECT_DIR$/src/codelets/behaviors/GoToClosestJewel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/codelets/motor/HandsActionCodelet.java" afterPath="$PROJECT_DIR$/src/codelets/motor/HandsActionCodelet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/codelets/motor/LegsActionCodelet.java" afterPath="$PROJECT_DIR$/src/codelets/motor/LegsActionCodelet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/codelets/perception/AppleDetector.java" afterPath="$PROJECT_DIR$/src/codelets/perception/AppleDetector.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/codelets/perception/ClosestAppleDetector.java" afterPath="$PROJECT_DIR$/src/codelets/perception/ClosestAppleDetector.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/codelets/perception/ClosestJewelDetector.java" afterPath="$PROJECT_DIR$/src/codelets/perception/ClosestJewelDetector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/codelets/perception/JewelDetector.java" afterPath="$PROJECT_DIR$/src/codelets/perception/JewelDetector.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,21 +19,33 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="GoToClosestApple.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/GoToClosestApple.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="59" column="40" lean-forward="false" selection-start-line="59" selection-start-column="40" selection-end-line="59" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="GoToClosestJewel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/GoToClosestJewel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="95" column="46" lean-forward="true" selection-start-line="95" selection-start-column="46" selection-end-line="95" selection-end-column="46" />
+            <state relative-caret-position="407">
+              <caret line="59" column="9" lean-forward="true" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AgentMind.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AgentMind.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AgentMind.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="143" column="0" lean-forward="false" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+            <state relative-caret-position="267">
+              <caret line="48" column="4" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -52,8 +56,8 @@
       <file leaf-file-name="ClosestAppleDetector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/codelets/perception/ClosestAppleDetector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="852">
-              <caret line="92" column="13" lean-forward="false" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
+            <state relative-caret-position="227">
+              <caret line="47" column="60" lean-forward="false" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -62,8 +66,8 @@
       <file leaf-file-name="ClosestJewelDetector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/codelets/perception/ClosestJewelDetector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="55" column="36" lean-forward="false" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="36" />
+            <state relative-caret-position="327">
+              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -72,8 +76,8 @@
       <file leaf-file-name="EatClosestApple.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/EatClosestApple.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-213">
-              <caret line="92" column="51" lean-forward="false" selection-start-line="92" selection-start-column="51" selection-end-line="92" selection-end-column="51" />
+            <state relative-caret-position="327">
+              <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -81,21 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Environment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Environment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="HandsActionCodelet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/codelets/motor/HandsActionCodelet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-311">
-              <caret line="40" column="18" lean-forward="false" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+            <state relative-caret-position="-213">
+              <caret line="59" column="13" lean-forward="false" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1566#1567#0" expanded="true" />
@@ -105,21 +99,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Intent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utils/Intent.java">
+      <file leaf-file-name="Unsafe.class" pinned="false" current-in-tab="false">
+        <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/sun/misc/Unsafe.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+            <state relative-caret-position="177">
+              <caret line="353" column="23" lean-forward="false" selection-start-line="353" selection-start-column="23" selection-end-line="353" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MindView.form" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/support/MindView.form">
+      <file leaf-file-name="Codelet.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/cst.jar!/br/unicamp/cst/core/entities/Codelet.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="357">
+              <caret line="396" column="0" lean-forward="false" selection-start-line="396" selection-start-column="0" selection-end-line="396" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -128,8 +122,8 @@
       <file leaf-file-name="GetClosestJewel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/GetClosestJewel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="123" column="28" lean-forward="false" selection-start-line="123" selection-start-column="28" selection-end-line="123" selection-end-column="28" />
+            <state relative-caret-position="387">
+              <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -168,23 +162,23 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/ActionRunner.java" />
         <option value="$PROJECT_DIR$/src/SynchronizedCreature.java" />
-        <option value="$PROJECT_DIR$/src/codelets/perception/ClosestAppleDetector.java" />
-        <option value="$PROJECT_DIR$/src/codelets/perception/ClosestJewelDetector.java" />
         <option value="$PROJECT_DIR$/src/codelets/perception/JewelDetector.java" />
         <option value="$PROJECT_DIR$/src/utils/SynchronizedCreature.java" />
         <option value="$PROJECT_DIR$/src/codelets/behaviors/Forage.java" />
-        <option value="$PROJECT_DIR$/src/codelets/behaviors/GetClosestJewel.java" />
         <option value="$PROJECT_DIR$/src/codelets/behaviors/Search.java" />
         <option value="$PROJECT_DIR$/src/codelets/motor/LegsActionCodelet.java" />
         <option value="$PROJECT_DIR$/src/codelets/motor/HandsActionCodelet.java" />
         <option value="$PROJECT_DIR$/src/codelets/perception/AppleDetector.java" />
         <option value="$PROJECT_DIR$/src/codelets/perception/FuelDetector.java" />
         <option value="$PROJECT_DIR$/src/codelets/perception/FuelLevelDetector.java" />
-        <option value="$PROJECT_DIR$/src/codelets/behaviors/GoToClosestApple.java" />
         <option value="$PROJECT_DIR$/src/codelets/behaviors/GoToClosestJewel.java" />
-        <option value="$PROJECT_DIR$/src/codelets/behaviors/EatClosestApple.java" />
         <option value="$PROJECT_DIR$/src/utils/Intent.java" />
+        <option value="$PROJECT_DIR$/src/codelets/behaviors/GoToClosestApple.java" />
+        <option value="$PROJECT_DIR$/src/codelets/perception/ClosestAppleDetector.java" />
+        <option value="$PROJECT_DIR$/src/codelets/perception/ClosestJewelDetector.java" />
         <option value="$PROJECT_DIR$/src/AgentMind.java" />
+        <option value="$PROJECT_DIR$/src/codelets/behaviors/GetClosestJewel.java" />
+        <option value="$PROJECT_DIR$/src/codelets/behaviors/EatClosestApple.java" />
       </list>
     </option>
   </component>
@@ -714,12 +708,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1498438554653</updated>
-      <workItem from="1498438558618" duration="16526000" />
+      <workItem from="1498438558618" duration="18552000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16825000" />
+    <option name="totallyTimeSpent" value="18851000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -756,23 +750,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/codelets/behaviors/GoToClosestApple.java</url>
-          <line>55</line>
-          <properties class="codelets.behaviors.GoToClosestApple" method="proc">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/codelets/behaviors/GoToClosestApple.java</url>
-          <line>51</line>
-          <properties />
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="15" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -905,24 +883,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/cst.jar!/br/unicamp/cst/core/entities/Codelet.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="396" column="0" lean-forward="false" selection-start-line="396" selection-start-column="0" selection-end-line="396" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/GoToClosestApple.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="41" column="26" lean-forward="false" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/Search.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="343">
@@ -962,34 +922,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/GetClosestJewel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="123" column="28" lean-forward="false" selection-start-line="123" selection-start-column="28" selection-end-line="123" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/codelets/motor/HandsActionCodelet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-311">
-          <caret line="40" column="18" lean-forward="false" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1566#1567#0" expanded="true" />
-            <element signature="e#1588#1589#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/GoToClosestJewel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="95" column="46" lean-forward="true" selection-start-line="95" selection-start-column="46" selection-end-line="95" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/Intent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -1006,36 +938,90 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/codelets/perception/ClosestJewelDetector.java">
+    <entry file="file://$PROJECT_DIR$/src/codelets/perception/ClosestAppleDetector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="55" column="36" lean-forward="false" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="36" />
+        <state relative-caret-position="227">
+          <caret line="47" column="60" lean-forward="false" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/codelets/perception/ClosestAppleDetector.java">
+    <entry file="file://$PROJECT_DIR$/src/codelets/perception/ClosestJewelDetector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="852">
-          <caret line="92" column="13" lean-forward="false" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
+        <state relative-caret-position="327">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/GoToClosestJewel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="59" column="9" lean-forward="true" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AgentMind.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="48" column="4" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/cst.jar!/br/unicamp/cst/core/entities/Codelet.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="396" column="0" lean-forward="false" selection-start-line="396" selection-start-column="0" selection-end-line="396" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/sun/misc/Unsafe.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="353" column="23" lean-forward="false" selection-start-line="353" selection-start-column="23" selection-end-line="353" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/EatClosestApple.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-213">
-          <caret line="92" column="51" lean-forward="false" selection-start-line="92" selection-start-column="51" selection-end-line="92" selection-end-column="51" />
+        <state relative-caret-position="327">
+          <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AgentMind.java">
+    <entry file="file://$PROJECT_DIR$/src/codelets/motor/HandsActionCodelet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="143" column="0" lean-forward="false" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+        <state relative-caret-position="-213">
+          <caret line="59" column="13" lean-forward="false" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1566#1567#0" expanded="true" />
+            <element signature="e#1588#1589#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/GetClosestJewel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/codelets/behaviors/GoToClosestApple.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="59" column="40" lean-forward="false" selection-start-line="59" selection-start-column="40" selection-end-line="59" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -31,6 +31,7 @@ import ws3dproxy.model.Thing;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -132,7 +133,7 @@ public class GetClosestJewel extends Codelet {
                 }
                 System.out.println("GetClosestJewel.proc: " + message.toString());
                 handsMO.setI(message.toString());
-                DestroyClosestJewel();
+                destroyClosestJewel();
             } else {
                 handsMO.setI("");
             }
@@ -146,12 +147,11 @@ public class GetClosestJewel extends Codelet {
     public void calculateActivation() {
     }
 
-    public void DestroyClosestJewel() {
+    public void destroyClosestJewel() {
         int r = -1;
         int i = 0;
         synchronized (known) {
-            CopyOnWriteArrayList<Thing> myknown = new CopyOnWriteArrayList<>(known);
-            for (Thing t : known) {
+            for (Thing t : new ArrayList<>(known)) {
                 if (closestJewel != null)
                     if (t.getName().equals(closestJewel.getName())) r = i;
                 i++;

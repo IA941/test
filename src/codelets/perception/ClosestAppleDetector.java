@@ -50,6 +50,10 @@ public class ClosestAppleDetector extends Codelet {
 
     @Override
     public void proc() {
+        if (closestAppleMO != null && closestAppleMO.getI() != null) {
+            return;
+        }
+
         Thing closest_apple = null;
         synchronized (knownMO) {
             known = (List<Thing>) knownMO.getI();

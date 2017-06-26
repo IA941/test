@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class AgentMind extends Mind {
     private static int creatureBasicSpeed = 1;
-    private static int reachDistance = 50;
+    private static int reachDistance = 30;
 
     public AgentMind(Environment env) {
         super();
