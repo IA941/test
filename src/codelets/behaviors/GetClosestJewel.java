@@ -40,12 +40,9 @@ public class GetClosestJewel extends Codelet {
     private MemoryObject knownMO;
     private int reachDistance;
     private MemoryObject handsMO;
-    Thing closestJewel;
-    CreatureInnerSense cis;
-    List<Thing> known;
-    // FMT checking leaflets
+    private Thing closestJewel;
+    private List<Thing> known;
     private MemoryObject leafletsMO = null;
-    List<Leaflet> leaflets;
     private MemoryObject fuelMO = null;
 
     public GetClosestJewel(int reachDistance) {
@@ -59,98 +56,90 @@ public class GetClosestJewel extends Codelet {
         innerSenseMO = (MemoryObject) this.getInput("INNER");
         handsMO = (MemoryObject) this.getOutput("HANDS");
         knownMO = (MemoryObject) this.getOutput("KNOWN_JEWELS");
-        // FMT leaflets
-        leafletsMO = (MemoryObject) this.getOutput("LEAFLETS");
+        leafletsMO = (MemoryObject) this.getInput("LEAFLETS");
     }
 
     public boolean isInLeaflet(List<Leaflet> leaflets, String jewelColor) {
-        Boolean belongs = false;
-        if (leaflets != null) {
-            for (Leaflet leaflet : leaflets) {
-                if (leaflet.ifInLeaflet(jewelColor) &&
-                        leaflet.getTotalNumberOfType(jewelColor) >
-                                leaflet.getCollectedNumberOfType(jewelColor)) {
-                    System.out.println("isInLeaflet: found leafletJewel");
-                    belongs = true;
-                    break;
-                }
+        if (leaflets == null || leaflets.isEmpty()) {
+            return false;
+        }
+
+        for (Leaflet leaflet : leaflets) {
+            if (leaflet.ifInLeaflet(jewelColor) &&
+                    leaflet.getTotalNumberOfType(jewelColor) >
+                            leaflet.getCollectedNumberOfType(jewelColor)) {
+                System.out.println("isInLeaflet: found leafletJewel");
+                return true;
             }
         }
-        return (belongs);
+
+        return false;
     }
 
     @Override
     public void proc() {
         String jewelName = "";
         closestJewel = (Thing) closestJewelMO.getI();
-        cis = (CreatureInnerSense) innerSenseMO.getI();
+        CreatureInnerSense cis = (CreatureInnerSense) innerSenseMO.getI();
         known = (List<Thing>) knownMO.getI();
-        //Find distance between closest apple and self
-        //If closer than reachDistance, eat the apple
-        // FMT retrieving leaflets
+
+        List<Leaflet> leaflets;
         if (leafletsMO != null) {
             leaflets = (List<Leaflet>) leafletsMO.getI();
-            System.out.println("GetClosestJewel.proc: received leaflets");
         } else
             leaflets = null;
 
-        if (closestJewel != null) {
-            double jewelX = 0;
-            double jewelY = 0;
-            try {
-                jewelX = closestJewel.getX1();
-                jewelY = closestJewel.getY1();
-                jewelName = closestJewel.getName();
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            double selfX = cis.position.getX();
-            double selfY = cis.position.getY();
-
-            Point2D pJewel = new Point();
-            pJewel.setLocation(jewelX, jewelY);
-
-            Point2D pSelf = new Point();
-            pSelf.setLocation(selfX, selfY);
-
-            double distance = pSelf.distance(pJewel);
-            JSONObject message = new JSONObject();
-            try {
-                if (distance < reachDistance) { //gett or hide it, depends on leaflet
-                    message.put("OBJECT", jewelName);
-                    if (leaflets != null) {
-                        if (isInLeaflet(leaflets, closestJewel.getMaterial().getColorName())) {
-                            message.put("ACTION", "SACKIT");
-                            System.out.println("GetClosestJewel.proc:  sacking " + jewelName);
-                        } else {
-                            message.put("ACTION", "HIDEIT");
-                            System.out.println("GetClosestJewel.proc:  hiding " + jewelName);
-                        }
-                    } else {
-                        message.put("ACTION", "SACKIT");
-                    }
-                    System.out.println("GetClosestJewel.proc: " + message.toString());
-                    handsMO.updateI(message.toString());
-                    DestroyClosestJewel();
-                } else {
-                    handsMO.updateI("");    //nothing
-                }
-
-//		    System.out.println(message);
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } else {
-            handsMO.updateI("");    //nothing
+        if (closestJewel == null) {
+            handsMO.setI("");
+            return;
         }
-        //System.out.println("Before: "+known.size()+ " "+known);
 
-        //System.out.println("After: "+known.size()+ " "+known);
-        //System.out.println("EatClosestApple: "+ handsMO.getInfo());
+        double jewelX = 0;
+        double jewelY = 0;
 
+        try {
+            jewelX = closestJewel.getX1();
+            jewelY = closestJewel.getY1();
+            jewelName = closestJewel.getName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        double selfX = cis.position.getX();
+        double selfY = cis.position.getY();
+
+        Point2D pJewel = new Point();
+        pJewel.setLocation(jewelX, jewelY);
+
+        Point2D pSelf = new Point();
+        pSelf.setLocation(selfX, selfY);
+
+        double distance = pSelf.distance(pJewel);
+        JSONObject message = new JSONObject();
+        try {
+            if (distance < reachDistance) { //get or hide it, depends on leaflet
+                message.put("OBJECT", jewelName);
+                if (leaflets != null) {
+                    if (isInLeaflet(leaflets, closestJewel.getMaterial().getColorName())) {
+                        message.put("ACTION", "SACKIT");
+                        System.out.println("GetClosestJewel.proc:  sacking " + jewelName);
+                    } else {
+                        message.put("ACTION", "HIDEIT");
+                        System.out.println("GetClosestJewel.proc:  hiding " + jewelName);
+                    }
+                } else {
+                    message.put("ACTION", "SACKIT");
+                }
+                System.out.println("GetClosestJewel.proc: " + message.toString());
+                handsMO.setI(message.toString());
+                DestroyClosestJewel();
+            } else {
+                handsMO.setI("");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

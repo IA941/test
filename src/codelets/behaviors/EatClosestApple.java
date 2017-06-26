@@ -28,8 +28,8 @@ import ws3dproxy.model.Thing;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EatClosestApple extends Codelet {
 
@@ -38,9 +38,7 @@ public class EatClosestApple extends Codelet {
     private MemoryObject knownMO;
     private int reachDistance;
     private MemoryObject handsMO;
-    Thing closestApple;
-    CreatureInnerSense cis;
-    List<Thing> known;
+    private Thing closestApple;
 
     public EatClosestApple(int reachDistance) {
         setTimeStep(50);
@@ -59,59 +57,48 @@ public class EatClosestApple extends Codelet {
     public void proc() {
         String appleName = "";
         closestApple = (Thing) closestAppleMO.getI();
-        cis = (CreatureInnerSense) innerSenseMO.getI();
-        known = (List<Thing>) knownMO.getI();
-        //Find distance between closest apple and self
-        //If closer than reachDistance, eat the apple
+        CreatureInnerSense cis = (CreatureInnerSense) innerSenseMO.getI();
 
-        if (closestApple != null) {
-            double appleX = 0;
-            double appleY = 0;
-            try {
-                appleX = closestApple.getX1();
-                appleY = closestApple.getY1();
-                appleName = closestApple.getName();
-
-
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            double selfX = cis.position.getX();
-            double selfY = cis.position.getY();
-
-            Point2D pApple = new Point();
-            pApple.setLocation(appleX, appleY);
-
-            Point2D pSelf = new Point();
-            pSelf.setLocation(selfX, selfY);
-
-            double distance = pSelf.distance(pApple);
-            JSONObject message = new JSONObject();
-            try {
-                if (distance < reachDistance) { //eat it
-                    message.put("OBJECT", appleName);
-                    message.put("ACTION", "EATIT");
-                    System.out.println("EatClosestJewel.proc: " + message.toString());
-                    handsMO.updateI(message.toString());
-                    DestroyClosestApple();
-                } else {
-                    handsMO.updateI("");    //nothing
-                }
-
-//				System.out.println(message);
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } else {
-            handsMO.updateI("");    //nothing
+        if (closestApple == null) {
+            handsMO.setI("");
+            return;
         }
-        //System.out.println("Before: "+known.size()+ " "+known);
 
-        //System.out.println("After: "+known.size()+ " "+known);
-        //System.out.println("EatClosestApple: "+ handsMO.getInfo());
+        double appleX = 0;
+        double appleY = 0;
+
+        try {
+            appleX = closestApple.getX1();
+            appleY = closestApple.getY1();
+            appleName = closestApple.getName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        double selfX = cis.position.getX();
+        double selfY = cis.position.getY();
+
+        Point2D pApple = new Point();
+        pApple.setLocation(appleX, appleY);
+
+        Point2D pSelf = new Point();
+        pSelf.setLocation(selfX, selfY);
+
+        double distance = pSelf.distance(pApple);
+        JSONObject message = new JSONObject();
+        try {
+            if (distance < reachDistance) {
+                message.put("OBJECT", appleName);
+                message.put("ACTION", "EATIT");
+                System.out.println("EatClosestApple.proc: " + message.toString());
+                handsMO.setI(message.toString());
+                clearClosestApple();
+            } else {
+                handsMO.setI("");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -120,19 +107,21 @@ public class EatClosestApple extends Codelet {
 
     }
 
-    public void DestroyClosestApple() {
+    public void clearClosestApple() {
         int r = -1;
         int i = 0;
+
+        List<Thing> known = (List<Thing>) knownMO.getI();
         synchronized (known) {
-            CopyOnWriteArrayList<Thing> myknown = new CopyOnWriteArrayList<>(known);
-            for (Thing t : known) {
+            for (Thing t : new ArrayList<>(known)) {
                 if (closestApple != null)
-                    if (t.getName().equals(closestApple.getName())) r = i;
+                    if (t.getName().equals(closestApple.getName())) {
+                        r = i;
+                    }
                 i++;
             }
             if (r != -1) known.remove(r);
             closestApple = null;
         }
     }
-
 }

@@ -38,13 +38,9 @@ import java.util.logging.Logger;
 public class LegsActionCodelet extends Codelet {
 
     private MemoryObject legsActionMO;
-    private double previousTargetx = 0;
-    private double previousTargety = 0;
     private String previousLegsAction = "";
     private Creature c;
-    double old_angle = 0;
-    int k = 0;
-    static Logger log = Logger.getLogger(LegsActionCodelet.class.getCanonicalName());
+    private static Logger log = Logger.getLogger(LegsActionCodelet.class.getCanonicalName());
 
     public LegsActionCodelet(Creature nc) {
         c = nc;
@@ -57,7 +53,6 @@ public class LegsActionCodelet extends Codelet {
 
     @Override
     public void proc() {
-
         String comm = (String) legsActionMO.getI();
         if (comm == null) comm = "";
         Random r = new Random();
@@ -72,7 +67,7 @@ public class LegsActionCodelet extends Codelet {
                     if (action.equals("FORAGE")) {
                         //if (!comm.equals(previousLegsAction)) {
                         if (!comm.equals(previousLegsAction))
-                            log.info("Sending Forage command to agent");
+                            log.info("Sending Search command to agent");
                         try {
                             c.rotate(2);
                         } catch (Exception e) {
@@ -90,8 +85,8 @@ public class LegsActionCodelet extends Codelet {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            previousTargetx = targetx;
-                            previousTargety = targety;
+                            double previousTargetx = targetx;
+                            double previousTargety = targety;
                         }
 
                     } else {
@@ -104,7 +99,6 @@ public class LegsActionCodelet extends Codelet {
                     }
                 }
                 previousLegsAction = comm;
-                k++;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -115,6 +109,4 @@ public class LegsActionCodelet extends Codelet {
     public void calculateActivation() {
 
     }
-
-
 }

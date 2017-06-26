@@ -23,9 +23,7 @@ import br.unicamp.cst.core.entities.MemoryObject;
 import memory.CreatureInnerSense;
 import ws3dproxy.model.Thing;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author ftanada
@@ -51,12 +49,11 @@ public class ClosestJewelDetector extends Codelet {
     @Override
     public void proc() {
         Thing closest_jewel = null;
-        known = Collections.synchronizedList((List<Thing>) knownMO.getI());
+        known = (List<Thing>) knownMO.getI();
         CreatureInnerSense cis = (CreatureInnerSense) innerSenseMO.getI();
         synchronized (known) {
             if (known.size() != 0) {
-                CopyOnWriteArrayList<Thing> myknown = new CopyOnWriteArrayList<>(known);
-                for (Thing t : myknown) {
+                for (Thing t : known) {
                     String objectName = t.getName();
                     if (objectName.contains("Jewel")) {
                         if (closest_jewel == null) {

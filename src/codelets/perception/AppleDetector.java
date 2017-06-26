@@ -23,9 +23,8 @@ import br.unicamp.cst.core.entities.Codelet;
 import br.unicamp.cst.core.entities.MemoryObject;
 import ws3dproxy.model.Thing;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Detect apples in the vision field.
@@ -53,38 +52,34 @@ public class AppleDetector extends Codelet {
 
     @Override
     public void proc() {
-        CopyOnWriteArrayList<Thing> vision;
-        List<Thing> known;
+        List<Thing> vision;
         synchronized (visionMO) {
-            //vision = Collections.synchronizedList((List<Thing>) visionMO.getI());
-            vision = new CopyOnWriteArrayList((List<Thing>) visionMO.getI());
-            known = Collections.synchronizedList((List<Thing>) knownApplesMO.getI());
-            //known = new CopyOnWriteArrayList((List<Thing>) knownApplesMO.getI());
-            synchronized (vision) {
-                for (Thing t : vision) {
-                    boolean found = false;
-                    synchronized (known) {
-                        CopyOnWriteArrayList<Thing> myknown = new CopyOnWriteArrayList<>(known);
-                        for (Thing e : myknown)
-                            if (t.getName().equals(e.getName())) {
-                                found = true;
-                                break;
-                            }
-                        if (found == false && t.getName().contains("PFood") && !t.getName().contains("NPFood"))
-                            known.add(t);
-                    }
+            vision = new ArrayList<>((List<Thing>) visionMO.getI());
+        }
 
+        List<Thing> known = (List<Thing>) knownApplesMO.getI();
+
+        synchronized (known) {
+            for (Thing thingInVision : vision) {
+                boolean found = false;
+                for (Thing knownThing : known) {
+                    if (thingInVision.getName().equals(knownThing.getName())) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found && thingInVision.getName().contains("PFood") && !thingInVision.getName().contains("NPFood")) {
+                    known.add(thingInVision);
                 }
             }
         }
-    }// end proc
+    }
 
     @Override
     public void calculateActivation() {
 
     }
-
-
-}//end class
+}
 
 

@@ -34,10 +34,12 @@ public class GoToClosestApple extends Codelet {
     private MemoryObject closestAppleMO;
     private MemoryObject selfInfoMO;
     private MemoryObject legsMO;
+    private MemoryObject fuelMO;
     private int creatureBasicSpeed;
     private double reachDistance;
 
     public GoToClosestApple(int creatureBasicSpeed, int reachDistance) {
+        this.setTimeStep(500);
         this.creatureBasicSpeed = creatureBasicSpeed;
         this.reachDistance = reachDistance;
     }
@@ -47,6 +49,7 @@ public class GoToClosestApple extends Codelet {
         closestAppleMO = (MemoryObject) this.getInput("CLOSEST_APPLE");
         selfInfoMO = (MemoryObject) this.getInput("INNER");
         legsMO = (MemoryObject) this.getOutput("LEGS");
+        fuelMO = (MemoryObject) this.getInput("FUEL");
     }
 
     @Override
@@ -54,6 +57,9 @@ public class GoToClosestApple extends Codelet {
         // Find distance between creature and closest apple
         //If far, go towards it
         //If close, stops
+        if (((double)fuelMO.getI()) > 40) {
+            return;
+        }
 
         Thing closestApple = (Thing) closestAppleMO.getI();
         CreatureInnerSense cis = (CreatureInnerSense) selfInfoMO.getI();
@@ -93,7 +99,7 @@ public class GoToClosestApple extends Codelet {
                     message.put("SPEED", 0.0);
                 }
                 System.out.println("GoToClosestApple.proc: " + message.toString());
-                legsMO.updateI(message.toString());
+                legsMO.setI(message.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }

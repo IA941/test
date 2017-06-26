@@ -25,9 +25,7 @@ import br.unicamp.cst.core.entities.MemoryObject;
 import memory.CreatureInnerSense;
 import ws3dproxy.model.Thing;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author klaus
@@ -53,13 +51,15 @@ public class ClosestAppleDetector extends Codelet {
     @Override
     public void proc() {
         Thing closest_apple = null;
-        known = Collections.synchronizedList((List<Thing>) knownMO.getI());
-        CreatureInnerSense cis = (CreatureInnerSense) innerSenseMO.getI();
+        synchronized (knownMO) {
+            known = (List<Thing>) knownMO.getI();
+        }
+
         synchronized (known) {
+            CreatureInnerSense cis = (CreatureInnerSense) innerSenseMO.getI();
             if (known.size() != 0) {
                 //Iterate over objects in vision, looking for the closest apple
-                CopyOnWriteArrayList<Thing> myknown = new CopyOnWriteArrayList<>(known);
-                for (Thing t : myknown) {
+                for (Thing t : known) {
                     String objectName = t.getName();
                     if (objectName.contains("PFood") && !objectName.contains("NPFood")) { //Then, it is an apple
                         if (closest_apple == null) {
@@ -89,6 +89,7 @@ public class ClosestAppleDetector extends Codelet {
                 closestAppleMO.setI(closest_apple);
             }
         }
+
     }//end proc
 
     @Override

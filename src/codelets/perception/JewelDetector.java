@@ -22,9 +22,8 @@ import br.unicamp.cst.core.entities.Codelet;
 import br.unicamp.cst.core.entities.MemoryObject;
 import ws3dproxy.model.Thing;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author ftanada
@@ -32,11 +31,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Detect jewels in the vision field.
- * 	This class detects a number of things related to apples, such as if there are any within reach,
+ * This class detects a number of things related to apples, such as if there are any within reach,
  * any on sight, if they are rotten, and so on.
  *
  * @author klaus
- *
  */
 public class JewelDetector extends Codelet {
     private MemoryObject visionMO;
@@ -55,32 +53,29 @@ public class JewelDetector extends Codelet {
 
     @Override
     public void proc() {
-        CopyOnWriteArrayList<Thing> vision;
-        List<Thing> known;
+        List<Thing> vision;
         synchronized (visionMO) {
-            //vision = Collections.synchronizedList((List<Thing>) visionMO.getI());
-            vision = new CopyOnWriteArrayList((List<Thing>) visionMO.getI());
-            known = Collections.synchronizedList((List<Thing>) knownJewelsMO.getI());
-            synchronized (vision) {
-                for (Thing t : vision) {
-                    boolean found = false;
-                    synchronized (known) {
-                        CopyOnWriteArrayList<Thing> myknown = new CopyOnWriteArrayList<>(known);
-                        for (Thing e : myknown)
-                            if (t.getName().equals(e.getName())) {
-                                found = true;
-                                break;
-                            }
-                        //System.out.println("jewelDetector.proc: "+t.getName());
-                        if (found == false && t.getName().contains("Jewel")) {
-                            //System.out.println("jewelDetector.proc: adding "+t.getName());
-                            known.add(t);
-                        }
-                    }
+            vision = new ArrayList((List<Thing>) visionMO.getI());
+        }
 
+        List<Thing> known = (List<Thing>) knownJewelsMO.getI();
+
+        synchronized (known) {
+            for (Thing t : vision) {
+                boolean found = false;
+                for (Thing e : known)
+                    if (t.getName().equals(e.getName())) {
+                        found = true;
+                        break;
+                    }
+                //System.out.println("jewelDetector.proc: "+t.getName());
+                if (!found && t.getName().contains("Jewel")) {
+                    //System.out.println("jewelDetector.proc: adding "+t.getName());
+                    known.add(t);
                 }
             }
         }
+
     }// end proc
 
     @Override
