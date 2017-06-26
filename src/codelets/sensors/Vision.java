@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * Contributors:
  *    Klaus Raizer, Andre Paraense, Ricardo Ribeiro Gudwin
  *****************************************************************************/
@@ -21,54 +21,54 @@ package codelets.sensors;
 
 import br.unicamp.cst.core.entities.Codelet;
 import br.unicamp.cst.core.entities.MemoryObject;
-import java.util.List;
 import ws3dproxy.model.Creature;
 import ws3dproxy.model.Thing;
 
+import java.util.List;
+
 /**
- * Vision codelet is responsible for getting vision information 
+ * Vision codelet is responsible for getting vision information
  * from the environment. It returns all objects in the visual field
- *  an its properties.
- *  
- *  @author klaus
+ * an its properties.
+ *
+ * @author klaus
  */
 //TODO How about implementing getvs 0 in Client?
-public class Vision extends Codelet{
-    
-	private MemoryObject visionMO;
-        private Creature c;
+public class Vision extends Codelet {
+
+    private MemoryObject visionMO;
+    private Creature c;
 
 
-	public Vision(Creature nc) {
-            c = nc;		
+    public Vision(Creature nc) {
+        c = nc;
 
-	}
+    }
 
-	@Override
-	public void accessMemoryObjects() {
-		visionMO=(MemoryObject)this.getOutput("VISION");
-	}
+    @Override
+    public void accessMemoryObjects() {
+        visionMO = (MemoryObject) this.getOutput("VISION");
+    }
 
-	@Override
-	public void proc() {
-             c.updateState();
-             synchronized (visionMO) {
-             List<Thing> lt = c.getThingsInVision();
-             //System.out.println("Vision:" + lt.toString());
-             visionMO.setI(lt);
-             //Class cl = List.class;
-             //visionMO.setT(cl);
-             }
-	}//end proc()
+    @Override
+    public void proc() {
+        c.updateState();
+        synchronized (visionMO) {
+            List<Thing> lt = c.getThingsInVision();
+            //System.out.println("Vision:" + lt.toString());
+            visionMO.setI(lt);
+            //Class cl = List.class;
+            //visionMO.setT(cl);
+        }
+    }//end proc()
 
-	@Override
-	public void calculateActivation() {
+    @Override
+    public void calculateActivation() {
 
-	}
+    }
 
 
-
-}// class end		
+}// class end
 
 
 

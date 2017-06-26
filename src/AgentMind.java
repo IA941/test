@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * Contributors:
  *    Klaus Raizer, Andre Paraense, Ricardo Ribeiro Gudwin
  *****************************************************************************/
@@ -20,45 +20,37 @@
 import br.unicamp.cst.core.entities.Codelet;
 import br.unicamp.cst.core.entities.MemoryObject;
 import br.unicamp.cst.core.entities.Mind;
-
-import codelets.behaviors.EatClosestApple;
-import codelets.behaviors.Forage;
-import codelets.behaviors.GoToClosestApple;
+import codelets.behaviors.*;
 import codelets.motor.HandsActionCodelet;
 import codelets.motor.LegsActionCodelet;
 import codelets.perception.AppleDetector;
 import codelets.perception.ClosestAppleDetector;
+import codelets.perception.ClosestJewelDetector;
+import codelets.perception.JewelDetector;
 import codelets.sensors.InnerSense;
 import codelets.sensors.Vision;
+import memory.CreatureInnerSense;
+import support.MindView;
+import ws3dproxy.model.Leaflet;
+import ws3dproxy.model.Thing;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import memory.CreatureInnerSense;
-import support.MindView;
-import ws3dproxy.model.Thing;
-
-import codelets.behaviors.GetClosestJewel;
-import codelets.behaviors.GoToClosestJewel;
-import codelets.perception.ClosestJewelDetector;
-import codelets.perception.JewelDetector;
-import ws3dproxy.model.Leaflet;
 
 /**
- *
  * @author rgudwin
  */
-public class AgentMind extends Mind 
-{    
+public class AgentMind extends Mind {
     private static int creatureBasicSpeed = 3;
     private static int reachDistance = 50;
-    
-    public AgentMind(Environment env) 
-    {
+
+    public AgentMind(Environment env) {
         super();
-                
+
         // Declare Memory Objects        
-	MemoryObject legsMO;
-	MemoryObject handsMO;
+        MemoryObject legsMO;
+        MemoryObject handsMO;
         MemoryObject visionMO;
         MemoryObject innerSenseMO;
         MemoryObject closestAppleMO;
@@ -68,19 +60,19 @@ public class AgentMind extends Mind
         MemoryObject knownJewelsMO;
         MemoryObject fuelMO;
         MemoryObject leafletMO;
-                                
+
         //Initialize Memory Objects
         legsMO = createMemoryObject("LEGS", "");
-	handsMO = createMemoryObject("HANDS", "");
+        handsMO = createMemoryObject("HANDS", "");
         List<Thing> vision_list = Collections.synchronizedList(new ArrayList<Thing>());
-	visionMO = createMemoryObject("VISION",vision_list);
+        visionMO = createMemoryObject("VISION", vision_list);
         CreatureInnerSense cis = new CreatureInnerSense();
-	innerSenseMO = createMemoryObject("INNER", cis);
+        innerSenseMO = createMemoryObject("INNER", cis);
         Thing closestApple = null;
         closestAppleMO = createMemoryObject("CLOSEST_APPLE", closestApple);
         List<Thing> knownApples = Collections.synchronizedList(new ArrayList<Thing>());
         knownApplesMO = createMemoryObject("KNOWN_APPLES", knownApples);
-                
+
         // FMT 2017 initialize jewel objects
         Thing closestJewel = null;
         closestJewelMO = createMemoryObject("CLOSEST_JEWEL", closestJewel);
@@ -88,11 +80,11 @@ public class AgentMind extends Mind
         knownJewelsMO = createMemoryObject("KNOWN_JEWELS", knownJewels);
         // handling leaflet
         List<Leaflet> leaflets = env.myCreature.getLeaflets();
-        leafletMO = createMemoryObject("LEAFLETS",leaflets);     
+        leafletMO = createMemoryObject("LEAFLETS", leaflets);
         // handling energy
         double fuel = env.myCreature.getFuel();
-        fuelMO = createMemoryObject("FUEL",fuel);
-        
+        fuelMO = createMemoryObject("FUEL", fuel);
+
         // Create and Populate MindViewer
         MindView mv = new MindView("FMT_MindView");
         mv.addMO(knownApplesMO);
@@ -106,98 +98,93 @@ public class AgentMind extends Mind
         mv.addMO(knownJewelsMO);
         mv.addMO(leafletMO);
         mv.addMO(fuelMO);
-                        
+
         mv.StartTimer();
         mv.setVisible(true);
-		
-	// Create Sensor Codelets	
-	Codelet vision = new Vision(env.myCreature);
-	vision.addOutput(visionMO);
+
+        // Create Sensor Codelets
+        Codelet vision = new Vision(env.myCreature);
+        vision.addOutput(visionMO);
         insertCodelet(vision); //Creates a vision sensor
-	
-	Codelet innerSense = new InnerSense(env.myCreature);
-	innerSense.addOutput(innerSenseMO);
+
+        Codelet innerSense = new InnerSense(env.myCreature);
+        innerSense.addOutput(innerSenseMO);
         insertCodelet(innerSense); //A sensor for the inner state of the creature
-		
-	// Create Actuator Codelets
-	Codelet legs = new LegsActionCodelet(env.myCreature);
-	legs.addInput(legsMO);
+
+        // Create Actuator Codelets
+        Codelet legs = new LegsActionCodelet(env.myCreature);
+        legs.addInput(legsMO);
         insertCodelet(legs);
 
-	Codelet hands = new HandsActionCodelet(env.myCreature);
-	hands.addInput(handsMO);
+        Codelet hands = new HandsActionCodelet(env.myCreature);
+        hands.addInput(handsMO);
         insertCodelet(hands);
-		
-	// Create Perception Codelets
+
+        // Create Perception Codelets
         Codelet ad = new AppleDetector();
         ad.addInput(visionMO);
         ad.addOutput(knownApplesMO);
         insertCodelet(ad);
-                
-	Codelet closestAppleDetector = new ClosestAppleDetector();
-	closestAppleDetector.addInput(knownApplesMO);
-	closestAppleDetector.addInput(innerSenseMO);
-	closestAppleDetector.addOutput(closestAppleMO);
+
+        Codelet closestAppleDetector = new ClosestAppleDetector();
+        closestAppleDetector.addInput(knownApplesMO);
+        closestAppleDetector.addInput(innerSenseMO);
+        closestAppleDetector.addOutput(closestAppleMO);
         insertCodelet(closestAppleDetector);
-		
-	// Create Behavior Codelets
-	Codelet goToClosestApple = new GoToClosestApple(creatureBasicSpeed,reachDistance);
-	goToClosestApple.addInput(closestAppleMO);
-	goToClosestApple.addInput(innerSenseMO);
-	goToClosestApple.addOutput(legsMO);
+
+        // Create Behavior Codelets
+        Codelet goToClosestApple = new GoToClosestApple(creatureBasicSpeed, reachDistance);
+        goToClosestApple.addInput(closestAppleMO);
+        goToClosestApple.addInput(innerSenseMO);
+        goToClosestApple.addOutput(legsMO);
         //insertCodelet(goToClosestApple);
-		
-	Codelet eatApple = new EatClosestApple(reachDistance);
-	eatApple.addInput(closestAppleMO);
-	eatApple.addInput(innerSenseMO);
-	eatApple.addOutput(handsMO);
+
+        Codelet eatApple = new EatClosestApple(reachDistance);
+        eatApple.addInput(closestAppleMO);
+        eatApple.addInput(innerSenseMO);
+        eatApple.addOutput(handsMO);
         eatApple.addOutput(knownApplesMO);
         insertCodelet(eatApple);
-                
-        //Codelet forage=new Forage();
-	//forage.addInput(knownApplesMO);
-        //forage.addOutput(legsMO);
-        //insertCodelet(forage);
-                
+
         // FMT adding jewel handling
         // Create Perception Codelets
         Codelet jd = new JewelDetector();
         jd.addInput(visionMO);
         jd.addOutput(knownJewelsMO);
         insertCodelet(jd);
-                
-	Codelet closestJewelDetector = new ClosestJewelDetector();
-	closestJewelDetector.addInput(knownJewelsMO);
-	closestJewelDetector.addInput(innerSenseMO);
-	closestJewelDetector.addOutput(closestJewelMO);
+
+        Codelet closestJewelDetector = new ClosestJewelDetector();
+        closestJewelDetector.addInput(knownJewelsMO);
+        closestJewelDetector.addInput(innerSenseMO);
+        closestJewelDetector.addOutput(closestJewelMO);
         insertCodelet(closestJewelDetector);
-		       
-	// Create Behavior Codelets
-	Codelet goToClosestJewel = new GoToClosestJewel(creatureBasicSpeed,reachDistance);
-	goToClosestJewel.addInput(closestJewelMO);
-	goToClosestJewel.addInput(innerSenseMO);
-	goToClosestJewel.addOutput(legsMO);
+
+        // Create Behavior Codelets
+        Codelet goToClosestJewel = new GoToClosestJewel(creatureBasicSpeed, reachDistance);
+        goToClosestJewel.addInput(closestJewelMO);
+        goToClosestJewel.addInput(innerSenseMO);
+        goToClosestJewel.addOutput(legsMO);
         insertCodelet(goToClosestJewel);
-		
-	Codelet getJewel = new GetClosestJewel(reachDistance);
-	getJewel.addInput(closestJewelMO);
-	getJewel.addInput(innerSenseMO);
+
+        Codelet getJewel = new GetClosestJewel(reachDistance);
+        getJewel.addInput(closestJewelMO);
+        getJewel.addInput(innerSenseMO);
         getJewel.addInput(leafletMO);
-	getJewel.addOutput(handsMO);
+        getJewel.addOutput(handsMO);
         getJewel.addOutput(knownJewelsMO);
         insertCodelet(getJewel);
-                
-        Codelet forageJewel = new Forage();
-	forageJewel.addInput(knownJewelsMO);
-        forageJewel.addOutput(legsMO);
-        insertCodelet(forageJewel);
-                
+
+        //Codelet forageJewel = new Forage();
+        //forageJewel.addInput(knownJewelsMO);
+        //forageJewel.addOutput(legsMO);
+        //insertCodelet(forageJewel);
+
         // sets a time step for running the codelets to avoid heating too much your machine
         for (Codelet c : this.getCodeRack().getAllCodelets())
-          c.setTimeStep(1500);
-		
-	// Start Cognitive Cycle
-	start(); 
-    }             
-    
+            c.setTimeStep(1500);
+
+        // Start Cognitive Cycle
+        start();
+    }
+
 }

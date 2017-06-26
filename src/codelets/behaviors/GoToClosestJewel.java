@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * Contributors:
  *    Klaus Raizer, Andre Paraense, Ricardo Ribeiro Gudwin
  * Altered by:
@@ -21,100 +21,88 @@
 
 package codelets.behaviors;
 
-import java.awt.Point;
-import java.awt.geom.Point2D;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import br.unicamp.cst.core.entities.Codelet;
 import br.unicamp.cst.core.entities.MemoryObject;
 import memory.CreatureInnerSense;
+import org.json.JSONException;
+import org.json.JSONObject;
 import ws3dproxy.model.Thing;
 
-public class GoToClosestJewel extends Codelet 
-{
-	private MemoryObject closestJewelMO;
-	private MemoryObject selfInfoMO;
-	private MemoryObject legsMO;
-	private int creatureBasicSpeed;
-	private double reachDistance;
+import java.awt.*;
+import java.awt.geom.Point2D;
 
-	public GoToClosestJewel(int creatureBasicSpeed, int reachDistance) 
-        {
-		this.creatureBasicSpeed = creatureBasicSpeed;
-		this.reachDistance=reachDistance;
-	}
+public class GoToClosestJewel extends Codelet {
+    private MemoryObject closestJewelMO;
+    private MemoryObject selfInfoMO;
+    private MemoryObject legsMO;
+    private int creatureBasicSpeed;
+    private double reachDistance;
 
-	@Override
-	public void accessMemoryObjects() 
-        {
-		closestJewelMO = (MemoryObject)this.getInput("CLOSEST_JEWEL");
-		selfInfoMO = (MemoryObject)this.getInput("INNER");
-		legsMO = (MemoryObject)this.getOutput("LEGS");
-	}
+    public GoToClosestJewel(int creatureBasicSpeed, int reachDistance) {
+        this.creatureBasicSpeed = creatureBasicSpeed;
+        this.reachDistance = reachDistance;
+    }
 
-	@Override
-	public void proc() 
-        {
-		// Find distance between creature and closest apple
-		//If far, go towards it
-		//If close, stops
+    @Override
+    public void accessMemoryObjects() {
+        closestJewelMO = (MemoryObject) this.getInput("CLOSEST_JEWEL");
+        selfInfoMO = (MemoryObject) this.getInput("INNER");
+        legsMO = (MemoryObject) this.getOutput("LEGS");
+    }
 
-                Thing closestJewel = (Thing) closestJewelMO.getI();
-                CreatureInnerSense cis = (CreatureInnerSense) selfInfoMO.getI();
+    @Override
+    public void proc() {
+        // Find distance between creature and closest apple
+        //If far, go towards it
+        //If close, stops
 
-		if (closestJewel != null)
-		{
-		    double jewelX = 0;
-		    double jewelY = 0;
-		    try 
-                    {
-                        jewelX = closestJewel.getX1();
-                        jewelY = closestJewel.getY1();
-		    } catch (Exception e) 
-                    {
-			e.printStackTrace();
-		    }
+        Thing closestJewel = (Thing) closestJewelMO.getI();
+        CreatureInnerSense cis = (CreatureInnerSense) selfInfoMO.getI();
 
-		    double selfX = cis.position.getX();
-                    double selfY = cis.position.getY();
+        if (closestJewel != null) {
+            double jewelX = 0;
+            double jewelY = 0;
+            try {
+                jewelX = closestJewel.getX1();
+                jewelY = closestJewel.getY1();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-		    Point2D pJewel = new Point();
-		    pJewel.setLocation(jewelX, jewelY);
+            double selfX = cis.position.getX();
+            double selfY = cis.position.getY();
 
-		    Point2D pSelf = new Point();
-		    pSelf.setLocation(selfX, selfY);
+            Point2D pJewel = new Point();
+            pJewel.setLocation(jewelX, jewelY);
 
-			double distance = pSelf.distance(pJewel);
-			JSONObject message=new JSONObject();
-			try 
-                        {
-			   if (distance > reachDistance)
-                           { //Go to it
-                             message.put("ACTION", "GOTO");
-  			     message.put("X", (int)jewelX);
-			     message.put("Y", (int)jewelY);
-                             message.put("SPEED", creatureBasicSpeed);	
-			    } else
-                           {//Stop
-				message.put("ACTION", "GOTO");
-				message.put("X", (int)jewelX);
-				message.put("Y", (int)jewelY);
-                                message.put("SPEED", 0.0);	
- 			    }
-                            System.out.println("GoToClosestJewel.proc: "+message.toString());
- 			    legsMO.updateI(message.toString());
-			} catch (JSONException e) 
-                        {
-				e.printStackTrace();
-			}	
-		}
-	}//end proc
-        
-        @Override
-        public void calculateActivation() 
-        {
-        
+            Point2D pSelf = new Point();
+            pSelf.setLocation(selfX, selfY);
+
+            double distance = pSelf.distance(pJewel);
+            JSONObject message = new JSONObject();
+            try {
+                if (distance > reachDistance) { //Go to it
+                    message.put("ACTION", "GOTO");
+                    message.put("X", (int) jewelX);
+                    message.put("Y", (int) jewelY);
+                    message.put("SPEED", creatureBasicSpeed);
+                } else {//Stop
+                    message.put("ACTION", "GOTO");
+                    message.put("X", (int) jewelX);
+                    message.put("Y", (int) jewelY);
+                    message.put("SPEED", 0.0);
+                }
+                System.out.println("GoToClosestJewel.proc: " + message.toString());
+                legsMO.updateI(message.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+    }//end proc
+
+    @Override
+    public void calculateActivation() {
+
+    }
 
 }

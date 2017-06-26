@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * Contributors:
  *    Klaus Raizer, Andre Paraense, Ricardo Ribeiro Gudwin
  *****************************************************************************/
@@ -23,47 +23,42 @@ import ws3dproxy.model.Creature;
 import ws3dproxy.model.World;
 
 /**
- *
  * @author rgudwin
  */
-public class Environment 
-{    
+public class Environment {
     public String host = "localhost";
     public int port = 4011;
     public String robotID = "r0";
     public Creature myCreature = null;
-    
-    public Environment() 
-    {
-          WS3DProxy proxy = new WS3DProxy();
-          try 
-          {   
-             World w = World.getInstance();
-             w.reset();
-             World.createFood(0, 350, 75);
-             World.createFood(0, 100, 220);
-             World.createFood(0, 250, 210);
-             // FMT
-             World.createJewel(1, 200, 200);
-             World.createJewel(2, 300, 300);
-             World.createJewel(3, 400, 400);
-             World.createJewel(4, 140, 410);
-             World.grow(1);
-             
-             myCreature = proxy.createCreature(100,450,0);
-             myCreature.start();
-             //c.setRobotID("r0");
-             //c.startCamera("r0");
-             // FMT initializeing leaflet
-             myCreature.genLeaflet();
-             myCreature.updateState();
-             
-          } catch (CommandExecException e) {
-              
-          }
-          System.out.println("Robot "+myCreature.getName()+" is ready to go.");
-		
+
+    public Environment() {
+        WS3DProxy proxy = new WS3DProxy();
+        try {
+            World w = World.getInstance();
+            w.reset();
+            World.createFood(0, 350, 75);
+            World.createFood(0, 100, 220);
+            World.createFood(0, 250, 210);
+            // FMT
+            World.createJewel(1, 200, 200);
+            World.createJewel(2, 300, 300);
+            World.createJewel(3, 400, 400);
+            World.createJewel(4, 140, 410);
+            World.grow(1);
+
+            myCreature = proxy.createCreature(100, 450, 0);
+            myCreature.start();
+            //c.setRobotID("r0");
+            //c.startCamera("r0");
+            // FMT initializeing leaflet
+            myCreature.genLeaflet();
+            myCreature.updateState();
+
+        } catch (CommandExecException e) {
+
+        }
+        System.out.println("Robot " + myCreature.getName() + " is ready to go.");
 
 
-	}
+    }
 }
