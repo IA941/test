@@ -36,7 +36,14 @@ public class EndSimulation extends Codelet {
             System.out.println("Ending simulation because all leaflets have been completed...");
             try {
                 creature.stop();
-            } catch (CommandExecException e) {
+                creature.getLeaflets().forEach(leaflet -> {
+                    try {
+                        creature.deliverLeaflet(leaflet.getID().toString());
+                    } catch (CommandExecException e) {
+                        e.printStackTrace();
+                    }
+                });
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             mind.shutDown();
