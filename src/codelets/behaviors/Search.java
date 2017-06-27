@@ -39,9 +39,13 @@ public class Search extends Codelet {
 
     @Override
     public void proc() {
-        if (((List<Thing>) knownApplesMO.getI()).size() > 0 ||
-                ((double) fuelMO.getI()) >= 40 &&
-                ((List<Thing>) knownJewelsMO.getI()).size() > 0) {
+        final int knownApples = ((List<Thing>) knownApplesMO.getI()).size();
+        final int knownJewels = ((List<Thing>) knownJewelsMO.getI()).size();
+        final double fuelLevel = ((double) fuelMO.getI());
+
+        if (fuelLevel >= 400 && knownJewels > 0) {
+            return;
+        } else if (fuelLevel < 400 && knownApples > 0) {
             return;
         }
 

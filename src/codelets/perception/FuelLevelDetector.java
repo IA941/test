@@ -29,6 +29,7 @@ public class FuelLevelDetector extends Codelet {
 
     @Override
     public void proc() {
+        creature.updateState();
         fuelLevel.setI(creature.getFuel());
     }
 }

@@ -22,20 +22,20 @@ package codelets.behaviors;
 import br.unicamp.cst.core.entities.Codelet;
 import br.unicamp.cst.core.entities.MemoryObject;
 import memory.CreatureInnerSense;
+import model.Helper;
 import org.json.JSONException;
 import org.json.JSONObject;
 import ws3dproxy.model.Thing;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EatClosestApple extends Codelet {
 
     private MemoryObject closestAppleMO;
     private MemoryObject innerSenseMO;
-    private MemoryObject knownMO;
+    private MemoryObject knownApplesMO;
     private int reachDistance;
     private MemoryObject handsMO;
     private Thing closestApple;
@@ -50,7 +50,7 @@ public class EatClosestApple extends Codelet {
         closestAppleMO = (MemoryObject) this.getInput("CLOSEST_APPLE");
         innerSenseMO = (MemoryObject) this.getInput("INNER");
         handsMO = (MemoryObject) this.getOutput("HANDS");
-        knownMO = (MemoryObject) this.getOutput("KNOWN_APPLES");
+        knownApplesMO = (MemoryObject) this.getOutput("KNOWN_APPLES");
     }
 
     @Override
@@ -108,19 +108,8 @@ public class EatClosestApple extends Codelet {
     }
 
     public void clearClosestApple() {
-        int r = -1;
-        int i = 0;
-
-        List<Thing> known = (List<Thing>) knownMO.getI();
-        synchronized (known) {
-            for (Thing t : new ArrayList<>(known)) {
-                if (closestApple != null)
-                    if (t.getName().equals(closestApple.getName())) {
-                        r = i;
-                    }
-                i++;
-            }
-            if (r != -1) known.remove(r);
+        if (closestAppleMO != null) {
+            Helper.removeByName((List<Thing>) knownApplesMO.getI(), closestApple.getName());
             closestApple = null;
         }
     }

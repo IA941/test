@@ -36,11 +36,11 @@ import java.util.logging.Logger;
  */
 
 public class HandsActionCodelet extends Codelet {
+    private static Logger log = Logger.getLogger(HandsActionCodelet.class.getCanonicalName());
     private MemoryObject handsMO;
     private String previousHandsAction = "";
     private Creature c;
     private Random r = new Random();
-    private static Logger log = Logger.getLogger(HandsActionCodelet.class.getCanonicalName());
 
     public HandsActionCodelet(Creature nc) {
         c = nc;

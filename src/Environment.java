@@ -26,9 +26,7 @@ import ws3dproxy.model.World;
  * @author rgudwin
  */
 public class Environment {
-    public String host = "localhost";
-    public int port = 4011;
-    public String robotID = "r0";
+
     public Creature myCreature = null;
 
     public Environment() {
@@ -36,29 +34,22 @@ public class Environment {
         try {
             World w = World.getInstance();
             w.reset();
+            myCreature = proxy.createCreature(100, 450, 0);
             World.createFood(0, 350, 75);
             World.createFood(0, 100, 220);
             World.createFood(0, 250, 210);
-            // FMT
             World.createJewel(1, 200, 200);
             World.createJewel(2, 300, 300);
             World.createJewel(3, 400, 400);
             World.createJewel(4, 140, 410);
             World.grow(1);
-
-            myCreature = proxy.createCreature(100, 450, 0);
             myCreature.start();
-            //c.setRobotID("r0");
-            //c.startCamera("r0");
-            // FMT initializeing leaflet
             myCreature.genLeaflet();
             myCreature.updateState();
-
         } catch (CommandExecException e) {
-
+            e.printStackTrace();
         }
+        
         System.out.println("Robot " + myCreature.getName() + " is ready to go.");
-
-
     }
 }

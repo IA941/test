@@ -24,6 +24,7 @@ package codelets.behaviors;
 import br.unicamp.cst.core.entities.Codelet;
 import br.unicamp.cst.core.entities.MemoryObject;
 import memory.CreatureInnerSense;
+import model.Helper;
 import org.json.JSONException;
 import org.json.JSONObject;
 import ws3dproxy.model.Leaflet;
@@ -31,14 +32,12 @@ import ws3dproxy.model.Thing;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GetClosestJewel extends Codelet {
     private MemoryObject closestJewelMO;
     private MemoryObject innerSenseMO;
-    private MemoryObject knownMO;
+    private MemoryObject knownJewelsMO;
     private int reachDistance;
     private MemoryObject handsMO;
     private Thing closestJewel;
@@ -56,7 +55,7 @@ public class GetClosestJewel extends Codelet {
         closestJewelMO = (MemoryObject) this.getInput("CLOSEST_JEWEL");
         innerSenseMO = (MemoryObject) this.getInput("INNER");
         handsMO = (MemoryObject) this.getOutput("HANDS");
-        knownMO = (MemoryObject) this.getOutput("KNOWN_JEWELS");
+        knownJewelsMO = (MemoryObject) this.getOutput("KNOWN_JEWELS");
         leafletsMO = (MemoryObject) this.getInput("LEAFLETS");
     }
 
@@ -82,7 +81,7 @@ public class GetClosestJewel extends Codelet {
         String jewelName = "";
         closestJewel = (Thing) closestJewelMO.getI();
         CreatureInnerSense cis = (CreatureInnerSense) innerSenseMO.getI();
-        known = (List<Thing>) knownMO.getI();
+        known = (List<Thing>) knownJewelsMO.getI();
 
         List<Leaflet> leaflets;
         if (leafletsMO != null) {
@@ -148,15 +147,8 @@ public class GetClosestJewel extends Codelet {
     }
 
     public void destroyClosestJewel() {
-        int r = -1;
-        int i = 0;
-        synchronized (known) {
-            for (Thing t : new ArrayList<>(known)) {
-                if (closestJewel != null)
-                    if (t.getName().equals(closestJewel.getName())) r = i;
-                i++;
-            }
-            if (r != -1) known.remove(r);
+        if (closestJewel != null) {
+            Helper.removeByName((List<Thing>) knownJewelsMO.getI(), closestJewel.getName());
             closestJewel = null;
         }
     }

@@ -55,7 +55,7 @@ public class GoToClosestJewel extends Codelet {
 
     @Override
     public void proc() {
-        if (((double)fuelMO.getI()) < 40) {
+        if (((double) fuelMO.getI()) < 400) {
             return;
         }
 

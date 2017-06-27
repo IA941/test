@@ -37,10 +37,10 @@ import java.util.logging.Logger;
 
 public class LegsActionCodelet extends Codelet {
 
+    private static Logger log = Logger.getLogger(LegsActionCodelet.class.getCanonicalName());
     private MemoryObject legsActionMO;
     private String previousLegsAction = "";
     private Creature c;
-    private static Logger log = Logger.getLogger(LegsActionCodelet.class.getCanonicalName());
 
     public LegsActionCodelet(Creature nc) {
         c = nc;

@@ -27,8 +27,8 @@ import codelets.perception.*;
 import codelets.sensors.InnerSense;
 import codelets.sensors.Vision;
 import memory.CreatureInnerSense;
+import model.SimulationStatus;
 import support.MindView;
-import utils.Intent;
 import ws3dproxy.model.Leaflet;
 import ws3dproxy.model.Thing;
 
@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class AgentMind extends Mind {
     private static int creatureBasicSpeed = 1;
-    private static int reachDistance = 30;
+    private static int reachDistance = 80;
 
     public AgentMind(Environment env) {
         super();
@@ -58,7 +58,7 @@ public class AgentMind extends Mind {
         MemoryObject knownJewelsMO;
         MemoryObject fuelMO;
         MemoryObject leafletMO;
-        MemoryObject intentMO;
+        MemoryObject simulationStatusMO;
 
         //Initialize Memory Objects
         legsMO = createMemoryObject("LEGS", "");
@@ -71,7 +71,7 @@ public class AgentMind extends Mind {
         closestAppleMO = createMemoryObject("CLOSEST_APPLE", closestApple);
         List<Thing> knownApples = Collections.synchronizedList(new ArrayList<Thing>());
         knownApplesMO = createMemoryObject("KNOWN_APPLES", knownApples);
-        intentMO = createMemoryObject("INTENT", Intent.NONE);
+        simulationStatusMO = createMemoryObject("SIMULATION_STATUS", SimulationStatus.IN_PROGRESS);
 
         // FMT 2017 initialize jewel objects
         Thing closestJewel = null;
@@ -93,7 +93,6 @@ public class AgentMind extends Mind {
         mv.addMO(innerSenseMO);
         mv.addMO(handsMO);
         mv.addMO(legsMO);
-        // FMT 2017
         mv.addMO(closestJewelMO);
         mv.addMO(knownJewelsMO);
         mv.addMO(leafletMO);
@@ -105,13 +104,12 @@ public class AgentMind extends Mind {
         // Create Sensor Codelets
         Codelet vision = new Vision(env.myCreature);
         vision.addOutput(visionMO);
-        insertCodelet(vision); //Creates a vision sensor
+        insertCodelet(vision);
 
         Codelet innerSense = new InnerSense(env.myCreature);
         innerSense.addOutput(innerSenseMO);
-        insertCodelet(innerSense); //A sensor for the inner state of the creature
+        insertCodelet(innerSense);
 
-        // Create Actuator Codelets
         Codelet legs = new LegsActionCodelet(env.myCreature);
         legs.addInput(legsMO);
         insertCodelet(legs);
@@ -124,7 +122,6 @@ public class AgentMind extends Mind {
         fuelDetector.addOutput(fuelMO);
         insertCodelet(fuelDetector);
 
-        // Create Perception Codelets
         Codelet appleDetector = new AppleDetector();
         appleDetector.addInput(visionMO);
         appleDetector.addOutput(knownApplesMO);
@@ -136,13 +133,12 @@ public class AgentMind extends Mind {
         closestAppleDetector.addOutput(closestAppleMO);
         insertCodelet(closestAppleDetector);
 
-        // Create Behavior Codelets
         Codelet goToClosestApple = new GoToClosestApple(creatureBasicSpeed, reachDistance);
         goToClosestApple.addInput(closestAppleMO);
         goToClosestApple.addInput(innerSenseMO);
         goToClosestApple.addInput(fuelMO);
         goToClosestApple.addOutput(legsMO);
-        //insertCodelet(goToClosestApple);
+        insertCodelet(goToClosestApple);
 
         Codelet eatApple = new EatClosestApple(reachDistance);
         eatApple.addInput(closestAppleMO);
@@ -186,6 +182,15 @@ public class AgentMind extends Mind {
         search.addInput(fuelMO);
         search.addOutput(legsMO);
         insertCodelet(search);
+
+        Codelet unstuck = new Unstuck(env.myCreature);
+        unstuck.addInput(simulationStatusMO);
+        unstuck.addInput(knownApplesMO);
+        unstuck.addInput(knownJewelsMO);
+        insertCodelet(unstuck);
+
+        Codelet endSimulation = new EndSimulation(env.myCreature, this);
+        insertCodelet(endSimulation);
 
         start();
     }
