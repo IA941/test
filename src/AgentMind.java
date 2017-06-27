@@ -53,7 +53,6 @@ public class AgentMind extends Mind {
         MemoryObject innerSenseMO;
         MemoryObject closestAppleMO;
         MemoryObject knownApplesMO;
-        // FMT 2017
         MemoryObject closestJewelMO;
         MemoryObject knownJewelsMO;
         MemoryObject fuelMO;
@@ -71,9 +70,7 @@ public class AgentMind extends Mind {
         closestAppleMO = createMemoryObject("CLOSEST_APPLE", closestApple);
         List<Thing> knownApples = Collections.synchronizedList(new ArrayList<Thing>());
         knownApplesMO = createMemoryObject("KNOWN_APPLES", knownApples);
-        simulationStatusMO = createMemoryObject("SIMULATION_STATUS", SimulationStatus.IN_PROGRESS);
 
-        // FMT 2017 initialize jewel objects
         Thing closestJewel = null;
         closestJewelMO = createMemoryObject("CLOSEST_JEWEL", closestJewel);
         List<Thing> knownJewels = Collections.synchronizedList(new ArrayList<Thing>());
@@ -86,7 +83,7 @@ public class AgentMind extends Mind {
         fuelMO = createMemoryObject("FUEL", fuel);
 
         // Create and Populate MindViewer
-        MindView mv = new MindView("FMT_MindView");
+        MindView mv = new MindView("MindView");
         mv.addMO(knownApplesMO);
         mv.addMO(visionMO);
         mv.addMO(closestAppleMO);
@@ -147,7 +144,6 @@ public class AgentMind extends Mind {
         eatApple.addOutput(knownApplesMO);
         insertCodelet(eatApple);
 
-        // FMT adding jewel handling
         // Create Perception Codelets
         Codelet jewelDetector = new JewelDetector();
         jewelDetector.addInput(visionMO);
@@ -184,7 +180,6 @@ public class AgentMind extends Mind {
         insertCodelet(search);
 
         Codelet unstuck = new Unstuck(env.myCreature);
-        unstuck.addInput(simulationStatusMO);
         unstuck.addInput(knownApplesMO);
         unstuck.addInput(knownJewelsMO);
         insertCodelet(unstuck);

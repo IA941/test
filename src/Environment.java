@@ -49,7 +49,7 @@ public class Environment {
         } catch (CommandExecException e) {
             e.printStackTrace();
         }
-        
+
         System.out.println("Robot " + myCreature.getName() + " is ready to go.");
     }
 }

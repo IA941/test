@@ -19,8 +19,6 @@ public class Unstuck extends Codelet {
 
     private final Creature creature;
 
-    private MemoryObject simulationStatusMO;
-
     private MemoryObject knownApples;
 
     private MemoryObject knownJewels;
@@ -34,7 +32,6 @@ public class Unstuck extends Codelet {
 
     @Override
     public void accessMemoryObjects() {
-        this.simulationStatusMO = (MemoryObject) getInput("SIMULATION_STATUS");
         this.knownApples = (MemoryObject) getInput("KNOWN_APPLES");
         this.knownJewels = (MemoryObject) getInput("KNOWN_JEWELS");
     }
@@ -46,12 +43,6 @@ public class Unstuck extends Codelet {
 
     @Override
     public void proc() {
-        SimulationStatus status = (SimulationStatus) simulationStatusMO.getI();
-
-        if (status == SimulationStatus.DONE) {
-            return;
-        }
-
         worldPoints.add(creature.getPosition());
 
         if (worldPoints.size() == 4) {
